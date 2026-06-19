@@ -30,7 +30,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. Custom Interactive Calculator
+    // 3. Scroll Triggered Animations using Intersection Observer
+    const scrollElements = document.querySelectorAll('.scroll-trigger');
+    
+    const elementInView = (el, dividend = 1) => {
+        const elementTop = el.getBoundingClientRect().top;
+        return (
+            elementTop <= 
+            (window.innerHeight || document.documentElement.clientHeight) / dividend
+        );
+    };
+    
+    const displayScrollElement = (element) => {
+        element.classList.add('active');
+    };
+    
+    const handleScrollAnimation = () => {
+        scrollElements.forEach((el) => {
+            if (elementInView(el, 1.15)) {
+                displayScrollElement(el);
+            }
+        });
+    };
+    
+    window.addEventListener('scroll', () => {
+        handleScrollAnimation();
+    });
+    
+    // Trigger once on load
+    setTimeout(handleScrollAnimation, 150);
+
+    // 4. Custom Interactive Calculator
     const daysInput = document.getElementById('days-input');
     const carSelect = document.getElementById('car-select');
     const calcTotal = document.getElementById('calc-total');
@@ -56,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     carSelect.addEventListener('change', calculateTotal);
     calculateTotal(); // Run once initially
 
-    // 4. Enroll Button Selector (binds package name to contact form selection)
+    // 5. Enroll Button Selector (binds package name to contact form selection)
     const selectButtons = document.querySelectorAll('.enroll-btn-select');
     const courseSelectForm = document.getElementById('course-select-form');
 
@@ -69,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 5. Form Submission Handling
+    // 6. Form Submission Handling
     const enrollForm = document.getElementById('enroll-form');
     const formFeedback = document.getElementById('form-feedback');
 
